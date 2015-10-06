@@ -187,15 +187,6 @@ class wiconnectpy(object):
             
             
 if __name__ == "__main__":
-    import msvcrt
-    a = wiconnectpy(sys.argv[1])
-    
-    if 0:
-        f = "Redefining_the_Power_Benchmark.pdf"
-        d = open(f, "rb").read()
-        print a("fcr {} {}".format(f, len(d)), d)
-        sys.exit(0)
-        
     prompt = "> "
     
     print "Interactive Network Mode"
