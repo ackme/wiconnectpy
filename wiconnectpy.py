@@ -187,17 +187,15 @@ class wiconnectpy(object):
             
             
 if __name__ == "__main__":
-    import msvcrt
+    import os
+
+    if os.name == 'nt':
+        import msvcrt
+
     a = wiconnectpy(sys.argv[1])
     
-    if 0:
-        f = "Redefining_the_Power_Benchmark.pdf"
-        d = open(f, "rb").read()
-        print a("fcr {} {}".format(f, len(d)), d)
-        sys.exit(0)
-        
     prompt = "> "
-    
+
     print "Interactive Network Mode"
     sys.stdout.write(prompt)
     try:
@@ -220,7 +218,13 @@ if __name__ == "__main__":
                     # could add a timeout or escape option here
                     # not that the msvcrt.getwch only works for Windows.  Can use sys.stdin.read(1) for linux
                     while len(data) < int(data_size):
-                        cmd_chr = msvcrt.getwch()
+                        cmd_chr = None
+
+                        if os.name == 'nt':
+                            cmd_chr = msvcrt.getwch()
+                        else:
+                            cmd_chr = sys.stdin.read(1)
+
                         data += cmd_chr
                     resp = a(cmd_string, data)
                     sys.stdout.write(resp)
